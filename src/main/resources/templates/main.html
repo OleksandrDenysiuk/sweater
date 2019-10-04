@@ -15,8 +15,8 @@
     </form>
 
 <div>Список сообщений</div>
-<form method="post" th:action="@{/filter}">
-    <input th:type="text" name="filter">
+<form method="get" th:action="@{/main}">
+    <input th:type="text" name="filter" th:value="${filter}">
     <button th:type="submit">Search</button>
 </form>
 
