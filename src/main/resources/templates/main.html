@@ -5,15 +5,17 @@
     <title>Hello</title>
 </head>
 <body>
-<div>
-    <form method="post">
-        <input th:type="text" name="text" placeholder="Add message">
-        <input th:type="test" name="tag" placeholder="Tag">
-        <button th:type="submit">Add</button>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+    <form th:action="@{/main}" method="post">
+        <input type="text" name="text" placeholder="Add message">
+        <input type="text" name="tag" placeholder="Tag">
+        <button type="submit">Add</button>
     </form>
-</div>
+
 <div>Список сообщений</div>
-<form method="post" action="filter">
+<form method="post" th:action="@{/filter}">
     <input th:type="text" name="filter">
     <button th:type="submit">Search</button>
 </form>
@@ -22,12 +24,13 @@
     <table>
         <tbody>
         <tr th:if="${messages.empty}">
-            <td colspan="2"> No messages Available </td>
+            <td colspan="2"> No messages Available</td>
         </tr>
         <tr th:each="message : ${messages}">
             <td><span th:text="${message.getId()}"> id </span></td>
             <td><span th:text="${message.getText()}"> text </span></td>
             <td><span th:text="${message.getTag()}"> tag </span></td>
+            <td><span th:text="${message.authorName}"> author </span></td>
         </tr>
         </tbody>
     </table>
