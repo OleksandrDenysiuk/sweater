@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
+    <link rel = "stylesheet" href="/static/style.css">
 </head>
 <body>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-    <form th:action="@{/main}" method="post">
-        <input type="text" name="text" placeholder="Add message">
-        <input type="text" name="tag" placeholder="Tag">
-        <button type="submit">Add</button>
-    </form>
+<span><a href="/user">List of users</a> </span>
+<form th:action="@{/main}" method="post" enctype="multipart/form-data">
+    <input type="text" name="text" placeholder="Add message">
+    <input type="text" name="tag" placeholder="Tag">
+    <input type="file" name="file">
+    <button type="submit">Add</button>
+</form>
 
 <div>Список сообщений</div>
 <form method="get" th:action="@{/main}">
@@ -22,7 +25,6 @@
 
 <div>
     <table>
-        <tbody>
         <tr th:if="${messages.empty}">
             <td colspan="2"> No messages Available</td>
         </tr>
@@ -31,8 +33,15 @@
             <td><span th:text="${message.getText()}"> text </span></td>
             <td><span th:text="${message.getTag()}"> tag </span></td>
             <td><span th:text="${message.authorName}"> author </span></td>
+            <td>
+                <div>
+                    <div th:if="${message.getFileName()}">
+                        <img th:with="filename=${message.getFileName()}" th:src="@{${'/img/' + filename}}">
+                    </div>
+                </div>
+            </td>
         </tr>
-        </tbody>
+
     </table>
 </div>
 </body>
