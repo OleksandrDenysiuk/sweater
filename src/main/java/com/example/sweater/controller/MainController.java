@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.Session;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -26,12 +27,14 @@ public class MainController {
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting() {
+    public String greeting(@AuthenticationPrincipal User user, Model model) {
+        if(user != null)
+        model.addAttribute("userName",user.getUsername());
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model){
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, @AuthenticationPrincipal User user, Model model){
         Iterable<Message> messages;
 
         if(filter !=null && !filter.isEmpty()){
@@ -42,6 +45,8 @@ public class MainController {
 
         model.addAttribute("messages",messages);
         model.addAttribute("filter",filter);
+        if(user != null)
+            model.addAttribute("userName",user.getUsername());
         return "main";
     }
 
@@ -74,7 +79,6 @@ public class MainController {
         Iterable<Message> messages = messageRepo.findAll();
 
         model.addAttribute("messages", messages);
-
         return "main";
     }
 }
