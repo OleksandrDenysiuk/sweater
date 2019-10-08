@@ -19,15 +19,21 @@
             Add new Message
         </a>
 
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="collapseExample" th:classappend="${message} ? 'show' : ''">
             <div class="form-group mt-3">
 
                 <form th:action="@{/main}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="text" placeholder="Write message"/>
+                        <input type="text" class="form-control" th:classappend="${textError} ? 'is-invalid' : ''" name="text" placeholder="Write message"/>
+                        <div class="invalid-feedback" th:if="${message}">
+                            <span th:text="${textError}"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="tag" placeholder="Tag">
+                        <div class="invalid-feedback" th:if="${message}">
+                            <span th:text="${tegError}"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="custom-file">
@@ -49,7 +55,7 @@
                 </div>
                 <div class="m-2">
                     <span th:text="${message.getTag()}"> tag </span>
-                    <span th:text="${message.authorName}"> author </span>
+                    <span th:text="${message.getText()}"> author </span>
                 </div>
                 <div class="card-footer text-muted">
                     <span th:text="${message.authorName}"> author </span>

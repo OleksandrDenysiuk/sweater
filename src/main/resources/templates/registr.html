@@ -14,19 +14,41 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">User Name :</label>
                     <div class="col-sm-6">
-                        <input type="text" name="username" class="form-control" placeholder="User name"/>
+                        <input type="text" name="username" class="form-control"
+                               th:classappend="${usernameError} ? 'is-invalid' : ''" placeholder="User name"/>
+                        <div class="invalid-feedback" th:if="${usernameError}">
+                            <span th:text="${usernameError}"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Password:</label>
                     <div class="col-sm-6">
-                        <input type="password" name="password" class="form-control" placeholder="Password"/>
+                        <input type="password" name="password" class="form-control"
+                               th:classappend="${passwordError} ? 'is-invalid' : ''"placeholder="Password"/>
+                        <div class="invalid-feedback" th:if="${passwordError}">
+                            <span th:text="${passwordError}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Password:</label>
+                    <div class="col-sm-6">
+                        <input type="password2" name="password2" class="form-control"
+                               th:classappend="${password2Error} ? 'is-invalid' : ''"placeholder="Password"/>
+                        <div class="invalid-feedback" th:if="${password2Error}">
+                            <span th:text="${password2Error}"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Email:</label>
                     <div class="col-sm-6">
-                        <input type="email" name="email" class="form-control" placeholder="some@some.com" />
+                        <input type="email" name="email" class="form-control"
+                               th:classappend="${emailError} ? 'is-invalid' : ''" placeholder="some@some.com"/>
+                        <div class="invalid-feedback" th:if="${emailError}">
+                            <span th:text="${emailError}"></span>
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
